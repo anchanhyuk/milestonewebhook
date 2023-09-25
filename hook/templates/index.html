@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하이고야</title>
+    <style>
+        div.tag {
+            margin: 2em 1em;
+            padding:0.8em;
+            border-radius:30px;
+            background-color:#f7e9e8;
+        }
+        h5,h1{
+            text-align: center;
+            color: gray;
+            text-shadow: 5, 5, 5, gray;
+            font-size: 15px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="progress" style="width: 0%; background-color: gray; height: 3px;"></div>
+    {% for i in event %}
+    <div class="tag">
+        <h1>{{i.msg}}</h1>
+        <h5>{{i.cma}}</h5>
+        <h5>{{i.time}}</h5>
+    </div>
+    {% endfor %}    
+</body>
+</html>
+<script>
+    setTimeout(function(){
+    location.reload();
+    },5000); // 3000밀리초 = 3초
+    
+    function updateProgressBar() {
+        var progressBar = document.getElementById("progress");
+        var width = 0;
+        var interval = 100; // 0.1초마다 갱신
+        var totalSeconds = 5;
+        var increment = (100 / (totalSeconds * 1000 / interval)); // 5초 동안 100%로 증가
+        
+        var timer = setInterval(function() {
+            if (width >= 100) {
+                clearInterval(timer);
+            } else {
+                width += increment;
+                progressBar.style.width = width + '%';
+            }
+        }, interval);
+    }
+
+    updateProgressBar();
+</script>
